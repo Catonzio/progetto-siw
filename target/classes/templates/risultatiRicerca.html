@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style>
+			h1 {
+				horizontal-align:center;
+			}
+		</style>
+	</head>
+	<body>
+		<div th:insert="html_supporto/navbar.html"></div>
+		<h1>Risultati ricerca:</h1><br>
+		<div th:if="${fotografi}">
+			<h3 th:text="Fotografi"></h3><br>
+			<ul>
+				<li th:each="fotografo : ${fotografi}">
+					Nome: <span th:text="${fotografo.nome}"></span>
+				</li>
+			</ul>
+		</div>
+		<h3 th:if="${albumi}" th:text="Album"></h3><br>
+		<ul>
+			<li th:each="album : ${albumi}">
+				Nome: <span th:text="${album.nome}"></span>
+			</li>
+		</ul>
+		<h3 th:if="${fotografie}" th:text="Fotografie"></h3><br>
+		<ul>
+			<li th:each="foto : ${fotografie}">
+				<img th:src="'/images/' + ${foto.fileName}" height="100" width="100">
+				<span th:text="${foto.fileName}"></span>
+			</li>
+		</ul>
+		
+	</body>
+</html>

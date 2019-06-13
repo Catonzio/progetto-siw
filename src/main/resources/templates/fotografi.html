@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<div th:insert="html_supporto/navbar.html"></div>
+		<a th:href="@{/addFotografo}">Aggiungi fotografo</a>
+		<a th:href="@{/}">Torna alla home page</a>
+		<ol>
+			<li th:each="fotografo : ${fotografi}">
+				Nome:		<span th:text="${fotografo.nome}"></span>
+				Cognome:	<span th:text="${fotografo.cognome}"></span>
+			</li>
+		</ol>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+	<head>
+		<meta charset="UTF-8">
+		<title>Pagina Iniziale</title>
+		<link rel="stylesheet" type="text/css" href="/css/paginaIniziale.css">
+	</head>
+	<body>
+		<!-- Qui inizia la navbar -->
+		<div th:insert="html_supporto/navbar.html"></div>
+		<!-- Qui finisce la navbar -->
+		<div class="fotografo">
+			<ul>
+				<li th:each="fotografo : ${fotografi}">
+					Fotografo: <span th:text="${fotografo.nome}">Danilo</span><br>
+					<ul>
+						<li th:each="album : ${fotografo.album}">
+							Nome album: <span th:text="${album.nome}">Album di Danilo</span>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="fotografia" th:each="foto : ${fotografie}">
+			<img th:src="'/images/' + ${foto.fileName}" height="100" width="100">
+			<span th:text="${foto.fileName}"></span>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style>
+			body {
+				background-color: #606060;
+				color:white;
+			}
+			a {
+			color:white;
+			}
+		</style>
+	</head>
+	<body>
+		<div th:insert="html_supporto/navbar.html"></div>
+		<!-- <div data-include="/html_supporto/navbar.html"></div> -->
+		<a th:href="@{/uploadFoto}">Upload foto</a>
+		<a th:href="@{/}">Torna alla home page</a>
+	</body>
+</html>

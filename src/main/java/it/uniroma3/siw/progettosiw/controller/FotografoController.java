@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -48,5 +49,20 @@ public class FotografoController {
 			return "fotografi.html";
 		} else
 			return "addFotografo.html";
+	}
+
+	@RequestMapping(value = "/fotografo/{id}", method = RequestMethod.GET)
+	public String visualizzaFotografo(@PathVariable("id") Long id, Model model) {
+		if (id != null) {
+			Fotografo fotografo = fotografoService.trovaPerId(id);
+			model.addAttribute("fotografo", fotografo);
+			if (!(fotografo.getAlbum().size() == 0)) {
+				model.addAttribute("albumi", fotografo.getAlbum());
+			}
+			return "paginaFotografo.html";
+		} else {
+			model.addAttribute("fotografi", fotografoService.tuttiFotografi());
+			return "fotografi.html";
+		}
 	}
 }

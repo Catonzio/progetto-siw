@@ -36,4 +36,9 @@ public class AlbumService {
 		return albumRepository.findByAutore(autore);
 	}
 
+	@Transactional
+	public Album trovaPerId(Long id) {
+		return albumRepository.findById(id).get();
+	}
+
 }

@@ -8,7 +8,6 @@
 	<body>
 		<div th:insert="html_supporto/navbar.html"></div>
 		<a th:href="@{/addAlbum}">Aggiungi album</a>
-		<a th:href="@{/}">Torna alla home page</a>
 		<ol>
 			<li th:each="album : ${albumi}">
 				Nome:	<span th:text="${album.nome}"></span><br>

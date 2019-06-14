@@ -5,33 +5,18 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 	</head>
-	<body>ciao
+	<body>ciao hello
 		<div th:insert="html_supporto/navbar.html"></div>
 		<h1>Inserimento album</h1>
-		<form th:action="@{/aggiungiAlbum}" method="post" th:object="${ricerca}">
-			Nome:			<input type="text" th:field="*{stringa1}">
-			Nome fotografo:	<input type="text" th:field="*{stringa2}">
-			<div class="dropdown">
-			 	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Dropdown
-				</button>
-			 	<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-			  	  	<button class="dropdown-item" type="button">Action</button>
-					<button class="dropdown-item" type="button">Another action</button>
-					<button class="dropdown-item" type="button">Something else here</button>
-				</div>
-			</div>
-			<input type="submit" value="Invia">
+		<form action="/aggiungiAlbum" method="POST" >
+			Nome album: <input type="text" name="nomeAlbum">
+			Nome autore: <input type="text" name="nomeFotografo">
+			<input type="submit" name="invia" value="Invia">
 		</form>
 		<!--  <form th:action="@{/aggiungiAutore}" method="post" th:object="${fotografo}" >
 			Nome autore:	<input type="text" th:field="*{nome}">
 		</form>  -->
-	<form action="/altriNomi" method="POST" >
-		Nome: <input type="text" name="nome">
-		Altro nome: <input type="text" name="altroNome">
-		<input type="submit" name="invia" value="Invia">
 	
-	</form>
 	
 	
 	</body>

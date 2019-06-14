@@ -42,8 +42,8 @@
 								 </li>
 							</ul>
 							<a class="nav-link" th:href="@{/loginFunzionario}">Sei un funzionario?</a>
-							<form class="form-inline my-2 my-lg-0" th:action="@{/ricerca}" method="post"  th:object="${ricerca}">
-								<input class="form-control mr-sm-2" type="text" placeholder="Cerca..." aria-label="Search" th:field="*{stringa1}">
+							<form class="form-inline my-2 my-lg-0" action="/ricerca" method="post">
+								<input class="form-control mr-sm-2" type="text" placeholder="Cerca..." aria-label="Search" name="ricerca">
 								<input class="btn btn-outline-success my-2 my-sm-0" type="submit">
 							</form>
 						  </div>

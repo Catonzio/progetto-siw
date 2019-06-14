@@ -4,11 +4,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<style>
-			h1 {
-				horizontal-align:center;
-			}
-		</style>
 	</head>
 	<body>
 		<div th:insert="html_supporto/navbar.html"></div>
@@ -17,14 +12,14 @@
 			<h3 th:text="Fotografi"></h3><br>
 			<ul>
 				<li th:each="fotografo : ${fotografi}">
-					Nome: <span th:text="${fotografo.nome}"></span>
+					<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}" th:text="${fotografo.nome}"></a>
 				</li>
 			</ul>
 		</div>
 		<h3 th:if="${albumi}" th:text="Album"></h3><br>
 		<ul>
 			<li th:each="album : ${albumi}">
-				Nome: <span th:text="${album.nome}"></span>
+				<a th:href="@{'/album' + '/' + ${album.id}}" th:text="${album.nome}"></a>
 			</li>
 		</ul>
 		<h3 th:if="${fotografie}" th:text="Fotografie"></h3><br>

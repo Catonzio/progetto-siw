@@ -7,11 +7,13 @@
 	</head>
 	<body>
 		<div th:insert="html_supporto/navbar.html"></div>
-		<a th:href="@{/addAlbum}">Aggiungi album</a>
+		<h3>Pagina fotografo</h3>
+		Nome: <span th:text="${fotografo.nome}"></span>
+		Cognome: <span th:text="${fotografo.cognome}"></span>
+		<!-- <span th:if="${albumi}" th:text="Lista album:"></span>  -->
 		<ol>
 			<li th:each="album : ${albumi}">
-				Nome:	<span th:text="${album.nome}"></span><br>
-				<span th:if="${album.autore}"><span th:text="'Nome autore: ' + ${album.autore.nome}"></span></span>
+				Nome album: <span th:text="${album.nome}"></span>
 			</li>
 		</ol>
 	</body>

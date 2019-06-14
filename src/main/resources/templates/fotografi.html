@@ -11,8 +11,8 @@
 		<a th:href="@{/}">Torna alla home page</a>
 		<ol>
 			<li th:each="fotografo : ${fotografi}">
-				Nome:		<span th:text="${fotografo.nome}"></span>
-				Cognome:	<span th:text="${fotografo.cognome}"></span>
+				<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}">Nome:		<span th:text="${fotografo.nome}"></span>
+				Cognome:	<span th:text="${fotografo.cognome}"></span></a>
 			</li>
 		</ol>
 	</body>

@@ -2,15 +2,12 @@ package it.uniroma3.siw.progettosiw.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.progettosiw.model.Album;
 import it.uniroma3.siw.progettosiw.model.Foto;
@@ -46,12 +43,11 @@ public class HomeController {
 		return "paginaIniziale.html";
 	}
 
-	@RequestMapping(value = "/ricerca", method = RequestMethod.POST)
-	public String ricerca(@Valid @ModelAttribute("ricerca") Ricerca ricerca, Model model, BindingResult bindingResult) {
-		String stringa = ricerca.getStringa1().toString();
-		List<Fotografo> fotografi = fotografoService.trovaPerNome(stringa);
-		List<Album> albumi = albumService.trovaPerNome(stringa);
-		List<Foto> fotografie = fotoService.trovaPerSimilarNome(stringa);
+	@PostMapping("/ricerca")
+	public String ricerca(Model model, @RequestParam("ricerca") String ricerca) {
+		List<Fotografo> fotografi = fotografoService.trovaPerNome(ricerca);
+		List<Album> albumi = albumService.trovaPerNome(ricerca);
+		List<Foto> fotografie = fotoService.trovaPerSimilarNome(ricerca);
 		if (!(fotografi.size() == 0)) {
 			model.addAttribute("fotografi", fotografi);
 		}
@@ -63,4 +59,22 @@ public class HomeController {
 		}
 		return "risultatiRicerca.html";
 	}
+
+//	@RequestMapping(value = "/ricerca", method = RequestMethod.POST)
+//	public String ricerca(@Valid @ModelAttribute("ricerca") Ricerca ricerca, Model model, BindingResult bindingResult) {
+//		String stringa = ricerca.getStringa1().toString();
+//		List<Fotografo> fotografi = fotografoService.trovaPerNome(stringa);
+//		List<Album> albumi = albumService.trovaPerNome(stringa);
+//		List<Foto> fotografie = fotoService.trovaPerSimilarNome(stringa);
+//		if (!(fotografi.size() == 0)) {
+//			model.addAttribute("fotografi", fotografi);
+//		}
+//		if (!(albumi.size() == 0)) {
+//			model.addAttribute("albumi", albumi);
+//		}
+//		if (!(fotografie.size() == 0)) {
+//			model.addAttribute("fotografie", fotografie);
+//		}
+//		return "risultatiRicerca.html";
+//	}
 }

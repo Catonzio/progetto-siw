@@ -3,25 +3,20 @@
 	xmlns="http://www.w3.org/1999/html">
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
-		<style>
-			body {
-				background-color: #606060;
-				color:white;
-			}
-			a {
-			color:white;
-			}
-		</style>
+		<title>Fotos</title>
 	</head>
 	<body>
 		<div th:insert="html_supporto/navbar.html"></div>
-		<a th:href="@{/uploadFoto}">Upload foto</a>
-		<ul>
-			<li th:each="foto : ${fotografie}">
-				<img th:src="'/images/' + ${foto.fileName}" height="100" width="100">
-				<span th:text="${foto.fileName}"></span>
-			</li>
-		</ul>
+		<div class="container-fluid">
+			<div class="row">
+				<a th:href="@{/uploadFoto}">Upload foto</a>
+			</div>
+			<div class="row">
+				<div class="col" th:each="foto : ${fotografie}">
+					<img th:src="'/images/' + ${foto.fileName}" height="400" width="500">
+					<span th:text="${foto.fileName}"></span>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

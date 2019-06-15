@@ -118,4 +118,9 @@ public class Foto {
 		return Paths.get(fileDirectory, fileName);
 	}
 
+	@Override
+	public String toString() {
+		return "Nome: " + getFileName();
+	}
+
 }

@@ -62,12 +62,22 @@ public class Album {
 		dataCreazione = data;
 	}
 
+	public List<Foto> getFoto() {
+		return foto;
+	}
+
 	public Fotografo getAutore() {
 		return autore;
 	}
 
 	public void setAutore(Fotografo autore) {
 		this.autore = autore;
+	}
+
+	public void aggiungiFoto(Foto foto) {
+		if (foto != null) {
+			this.foto.add(foto);
+		}
 	}
 
 }

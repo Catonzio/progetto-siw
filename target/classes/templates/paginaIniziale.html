@@ -7,24 +7,26 @@
 		<link rel="stylesheet" type="text/css" href="/css/paginaIniziale.css">
 	</head>
 	<body>
-		<!-- Qui inizia la navbar -->
 		<div th:insert="html_supporto/navbar.html"></div>
-		<!-- Qui finisce la navbar -->
-		<div class="fotografo">
-			<ul>
-				<li th:each="fotografo : ${fotografi}">
-					Fotografo: <span th:text="${fotografo.nome}">Danilo</span><br>
+		<div class="container-fluid">
+			<div class="row" th:each="fotografo : ${fotografi}">>
+				<div class="col" >
+					<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}">Fotografo: <span th:text="${fotografo.nome}">Danilo</span><br></a>
 					<ul>
 						<li th:each="album : ${fotografo.album}">
-							Nome album: <span th:text="${album.nome}">Album di Danilo</span>
+							Nome album: &emsp;<span th:text="${album.nome}">Album di Danilo</span>
 						</li>
 					</ul>
-				</li>
-			</ul>
+				</div>
+			</div>
 		</div>
-		<div class="fotografia" th:each="foto : ${fotografie}">
-			<img th:src="'/images/' + ${foto.fileName}" height="100" width="100">
-			<span th:text="${foto.fileName}"></span>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col" th:each="foto : ${fotografie}">
+					<img th:src="'/images/' + ${foto.fileName}" height="100" width="100">
+					<span th:text="${foto.fileName}"></span>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

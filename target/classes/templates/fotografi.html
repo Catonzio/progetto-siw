@@ -3,17 +3,20 @@
 	xmlns="http://www.w3.org/1999/html">
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>Fotografi</title>
+		<style></style>
 	</head>
 	<body>
 		<div th:insert="html_supporto/navbar.html"></div>
-		<a th:href="@{/addFotografo}">Aggiungi fotografo</a>
-		<ol>
-			<li th:each="fotografo : ${fotografi}">
-				<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}">
-				Nome:		<span th:text="${fotografo.nome}"></span>
-				Cognome:	<span th:text="${fotografo.cognome}"></span></a>
-			</li>
-		</ol>
+		<h3><a th:href="@{/addFotografo}">Aggiungi fotografo</a></h3>
+		<div class="container-fluid">
+			<div class="row" th:each="fotografo : ${fotografi}">
+				<div class="col" >
+					<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}">
+					Nome:		<span th:text="${fotografo.nome}"></span>
+					&emsp;&emsp;Cognome:	<span th:text="${fotografo.cognome}"></span></a>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

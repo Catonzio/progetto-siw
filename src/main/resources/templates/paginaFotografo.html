@@ -7,16 +7,24 @@
 	</head>
 	<body>
 		<div th:insert="html_supporto/navbar.html"></div>
-		<h3>Pagina fotografo</h3>
-		Nome: <span th:text="${fotografo.nome}"></span>
-		Cognome: <span th:text="${fotografo.cognome}"></span>
-		<div th:if="${albumi}" >
-			Lista album:
-			<ol>
-				<li th:each="album : ${albumi}">
-					Nome album: <a th:href="@{'/album' + '/' + ${album.id}}" th:text="${album.nome}"></a>
-				</li>
-			</ol>
+		<div class="container-fluid">
+			<div class="row">
+				<h3>Pagina fotografo</h3>
+			</div>
+			<div class="row">
+			<div class="col">
+			Nome: <span th:text="${fotografo.nome}"></span>
+			</div>
+			<div class="col-11">
+			Cognome: <span th:text="${fotografo.cognome}"></span>
+			</div>
+				<div class="container-fluid" th:if="${albumi}" >
+					Lista album:
+					<div class="row" th:each="album : ${albumi}">
+						Nome album: <a th:href="@{'/album' + '/' + ${album.id}}" th:text="${album.nome}"></a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

@@ -29,19 +29,16 @@ public class AlbumController {
 	@RequestMapping("/album")
 	public String album(Model model) {
 		model.addAttribute("albumi", albumService.tuttiAlbum());
-//		model.addAttribute("ricerca", new Ricerca());
 		return "album.html";
 	}
 
 	@RequestMapping("/addAlbum")
 	public String addAlbum(Model model) {
-//		model.addAttribute("ricerca", new Ricerca());
 		return "addAlbum.html";
 	}
 
 	@RequestMapping(value = "/album/{idF}/{idA}", method = RequestMethod.POST)
 	public String selezionaAlbum(Model model, @RequestParam("idF") Long idF, @RequestParam("idA") Long idA) {
-
 		return "uploadFoto.html";
 	}
 
@@ -81,13 +78,12 @@ public class AlbumController {
 		if (!(nomeFotografo.isBlank()) && !(nomeAlbum.isBlank())) {
 			Fotografo fotografo = fotografoService.trovaPerNome(nomeFotografo).get(0);
 			Album album = new Album(nomeAlbum, fotografo);
-			fotografo.addAlbum(album);
+			fotografo.aggiungiAlbum(album);
 			albumService.save(album);
 			model.addAttribute("albumi", albumService.tuttiAlbum());
 			return "album.html";
 		} else
 			return "addAlbum.html";
-
 	}
 
 //	@RequestMapping(value = "/aggiungiAutore", method = RequestMethod.POST)

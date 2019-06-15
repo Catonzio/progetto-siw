@@ -47,6 +47,14 @@ public class Fotografo {
 		this.nome = nome;
 	}
 
+	public List<Album> getAlbum() {
+		return album;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
 	public String getCognome() {
 		return cognome;
 	}
@@ -57,19 +65,9 @@ public class Fotografo {
 		}
 	}
 
-	public List<Album> getAlbum() {
-		return album;
-	}
-
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
-
-	public void addAlbum(Album album) {
-		this.album.add(album);
-	}
-
-	public void addFoto(Foto foto) {
-		fotoFatte.add(foto);
+	public void aggiungiFoto(Foto foto) {
+		if (foto != null) {
+			fotoFatte.add(foto);
+		}
 	}
 }

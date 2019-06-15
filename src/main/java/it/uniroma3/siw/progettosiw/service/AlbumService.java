@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.progettosiw.model.Album;
+import it.uniroma3.siw.progettosiw.model.Foto;
 import it.uniroma3.siw.progettosiw.model.Fotografo;
 import it.uniroma3.siw.progettosiw.repository.AlbumRepository;
 

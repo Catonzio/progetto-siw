@@ -85,7 +85,12 @@ public class FotoService {
 			throws InvalidFileException, IOException {
 		String fileName = handleFileName(file.getOriginalFilename(), uploadDirectory);
 		Path path = Paths.get(uploadDirectory, fileName);
-		Files.copy(file.getInputStream(), path);
+		try {
+			System.out.println("uploading here: " + path.toString());
+			Files.copy(file.getInputStream(), path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		String extension = getFileExtension(fileName);
 		String fileBaseName = fileName.substring(0, fileName.length() - extension.length() - 1);
 		return new Foto(uploadDirectory, fileName, extension, fileBaseName, fotografo, album);

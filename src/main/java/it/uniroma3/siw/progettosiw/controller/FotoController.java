@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +31,7 @@ import it.uniroma3.siw.progettosiw.service.FotografoService;
 @Controller
 public class FotoController {
 
-	@Value("/home/danilo/OneDrive/Ubuntu/Danilo/Eclipse/progetto-siw/src/main/resources/static/images")
+	@Value("/home/danilo/OneDrive/Ubuntu/progetto-siw/src/main/resources/static/images")
 	private String uploadDirectory;
 
 	@Autowired
@@ -58,25 +59,38 @@ public class FotoController {
 	@RequestMapping(value = "/upload_images", method = RequestMethod.POST)
 	public String fotoUpload(Model model, @RequestParam("file") MultipartFile file,
 			@RequestParam("nomeAlbum") String nomeAlbum, @RequestParam("nomeFotografo") String nomeFotografo) {
+		model.addAttribute("fotografi", fotografoService.tuttiFotografi());
+		model.addAttribute("albumi", albumService.tuttiAlbum());
 		try {
 			Album album = albumService.trovaPerNome(nomeAlbum).get(0);
 			Fotografo fotografo = fotografoService.trovaPerNome(nomeFotografo).get(0);
 			if (isAlbumDelFotografo(album, fotografo)) {
 				Foto uploadedFoto = fotoService.uploadFoto(file, uploadDirectory, fotografo, album);
+				album.aggiungiFoto(uploadedFoto);
+				fotografo.aggiungiFoto(uploadedFoto);
 				fotoService.save(uploadedFoto);
-			} else {
-				model.addAttribute("fotografi", fotografoService.tuttiFotografi());
-				model.addAttribute("albumi", albumService.tuttiAlbum());
+			} else
 				return "uploadFoto.html";
-			}
 		} catch (InvalidFileException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("fotografie", fotoService.tutteFoto());
-		return "fotografie.html"; // MODIFICARE LA PAGINA
+		return "fotografie.html";
+	}
 
+	@RequestMapping(value = "/upload_images/{id}", method = RequestMethod.GET)
+	public String aggiornaConAlbum(Model model, @PathVariable("id") Long id) {
+		model.addAttribute("fotografi", fotografoService.tuttiFotografi());
+		if (id != null) {
+			Fotografo fotografo = fotografoService.trovaPerId(id);
+			if (fotografo != null) {
+				model.addAttribute("albumi", fotografo.getAlbum());
+			}
+			return "uploadFoto.html";
+		} else
+			return "uploadFoto.html";
 	}
 
 	@RequestMapping(value = "/file", method = RequestMethod.GET)

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,15 +81,14 @@ public class FotoService {
 		return cleanFileName;
 	}
 
-	public Foto uploadFoto(MultipartFile file, String uploadDirectory) throws InvalidFileException, IOException {
+	public Foto uploadFoto(MultipartFile file, String uploadDirectory, Fotografo fotografo, Album album)
+			throws InvalidFileException, IOException {
 		String fileName = handleFileName(file.getOriginalFilename(), uploadDirectory);
 		Path path = Paths.get(uploadDirectory, fileName);
 		Files.copy(file.getInputStream(), path);
 		String extension = getFileExtension(fileName);
 		String fileBaseName = fileName.substring(0, fileName.length() - extension.length() - 1);
-		// modificare album e fotografo!
-		return new Foto(uploadDirectory, fileName, extension, fileBaseName, LocalDate.now(), new Fotografo(),
-				new Album());
+		return new Foto(uploadDirectory, fileName, extension, fileBaseName, fotografo, album);
 	}
 
 	public void save(Foto foto) {
@@ -98,7 +96,7 @@ public class FotoService {
 	}
 
 	public List<Foto> tutteFoto() {
-		return (List<Foto>) fotoRepository.findAll();
+		return fotoRepository.findAll();
 	}
 
 	public Foto findLastFile() {

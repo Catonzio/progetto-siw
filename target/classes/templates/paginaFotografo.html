@@ -10,11 +10,13 @@
 		<h3>Pagina fotografo</h3>
 		Nome: <span th:text="${fotografo.nome}"></span>
 		Cognome: <span th:text="${fotografo.cognome}"></span>
-		<!-- <span th:if="${albumi}" th:text="Lista album:"></span>  -->
-		<ol>
-			<li th:each="album : ${albumi}">
-				Nome album: <span th:text="${album.nome}"></span>
-			</li>
-		</ol>
+		<div th:if="${albumi}" >
+			Lista album:
+			<ol>
+				<li th:each="album : ${albumi}">
+					Nome album: <a th:href="@{'/album' + '/' + ${album.id}}" th:text="${album.nome}"></a>
+				</li>
+			</ol>
+		</div>
 	</body>
 </html>

@@ -36,13 +36,13 @@ public class Foto {
 
 	}
 
-	public Foto(String fileDirectory, String fileName, String fileExtension, String fileBaseName,
-			LocalDate dataCaricamento, Fotografo autore, Album album) {
+	public Foto(String fileDirectory, String fileName, String fileExtension, String fileBaseName, Fotografo autore,
+			Album album) {
 		this.fileDirectory = fileDirectory;
 		this.fileName = fileName;
 		this.fileExtension = fileExtension;
 		this.fileBaseName = fileBaseName;
-		this.dataCaricamento = dataCaricamento;
+		dataCaricamento = LocalDate.now();
 		this.autore = autore;
 		this.album = album;
 	}

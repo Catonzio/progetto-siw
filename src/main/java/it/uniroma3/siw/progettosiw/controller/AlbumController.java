@@ -39,6 +39,12 @@ public class AlbumController {
 		return "addAlbum.html";
 	}
 
+	@RequestMapping(value = "/album/{idF}/{idA}", method = RequestMethod.POST)
+	public String selezionaAlbum(Model model, @RequestParam("idF") Long idF, @RequestParam("idA") Long idA) {
+
+		return "uploadFoto.html";
+	}
+
 //	@RequestMapping(value = "/aggiungiAlbum", method = RequestMethod.POST)
 //	public String aggiungiAlbum(@ModelAttribute("ricerca") Ricerca ricerca, Model model, BindingResult bindingResult) {
 //		ricercaValidator.validate(ricerca, bindingResult);

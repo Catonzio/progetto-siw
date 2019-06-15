@@ -5,7 +5,6 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.progettosiw.exceptions.InvalidFileException;
+import it.uniroma3.siw.progettosiw.model.Album;
 import it.uniroma3.siw.progettosiw.model.Foto;
+import it.uniroma3.siw.progettosiw.model.Fotografo;
+import it.uniroma3.siw.progettosiw.service.AlbumService;
 import it.uniroma3.siw.progettosiw.service.FotoService;
+import it.uniroma3.siw.progettosiw.service.FotografoService;
 
 @Controller
 public class FotoController {
@@ -33,31 +36,47 @@ public class FotoController {
 	@Autowired
 	private FotoService fotoService;
 
+	@Autowired
+	private AlbumService albumService;
+
+	@Autowired
+	private FotografoService fotografoService;
+
 	@RequestMapping("/fotografie")
-	public String fotografie() {
+	public String fotografie(Model model) {
+		model.addAttribute("fotografie", fotoService.tutteFoto());
 		return "fotografie.html";
 	}
 
 	@RequestMapping(value = "/uploadFoto")
-	public String upload() {
+	public String upload(Model model) {
+		model.addAttribute("fotografi", fotografoService.tuttiFotografi());
+		model.addAttribute("albumi", albumService.tuttiAlbum());
 		return "uploadFoto.html";
 	}
 
 	@RequestMapping(value = "/upload_images", method = RequestMethod.POST)
-	public String fotoUpload(Model model, @RequestParam("file") MultipartFile file) {
+	public String fotoUpload(Model model, @RequestParam("file") MultipartFile file,
+			@RequestParam("nomeAlbum") String nomeAlbum, @RequestParam("nomeFotografo") String nomeFotografo) {
 		try {
-			Foto uploadedFoto = fotoService.uploadFoto(file, uploadDirectory);
-			uploadedFoto.setAlbum(null);
-			uploadedFoto.setAutore(null);
-			uploadedFoto.setDataCaricamento(LocalDate.now());
-			fotoService.save(uploadedFoto);
+			Album album = albumService.trovaPerNome(nomeAlbum).get(0);
+			Fotografo fotografo = fotografoService.trovaPerNome(nomeFotografo).get(0);
+			if (isAlbumDelFotografo(album, fotografo)) {
+				Foto uploadedFoto = fotoService.uploadFoto(file, uploadDirectory, fotografo, album);
+				fotoService.save(uploadedFoto);
+			} else {
+				model.addAttribute("fotografi", fotografoService.tuttiFotografi());
+				model.addAttribute("albumi", albumService.tuttiAlbum());
+				return "uploadFoto.html";
+			}
 		} catch (InvalidFileException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("fotografie", fotoService.tutteFoto());
-		return "uploadFoto.html"; // MODIFICARE LA PAGINA
+		return "fotografie.html"; // MODIFICARE LA PAGINA
+
 	}
 
 	@RequestMapping(value = "/file", method = RequestMethod.GET)
@@ -67,5 +86,9 @@ public class FotoController {
 		return ResponseEntity.ok().contentLength(Files.size(filePath))
 				.contentType(MediaType.parseMediaType(URLConnection.guessContentTypeFromName(filePath.toString())))
 				.body(new InputStreamResource(Files.newInputStream(filePath, StandardOpenOption.READ)));
+	}
+
+	private boolean isAlbumDelFotografo(Album album, Fotografo fotografo) {
+		return fotografo.getAlbum().contains(album);
 	}
 }

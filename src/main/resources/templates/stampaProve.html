@@ -7,11 +7,8 @@
 	</head>
 	<body>
 		<div th:insert="html_supporto/navbar.html"></div>
-		<h3>Pagina album</h3>
-		Nome album: <span th:text="${album.nome}"></span><br>
-		<div th:if="${fotografo}">
-			Autore:
-			<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}" th:text="${fotografo.nome}"></a>
-		</div>
-	</body>
+		Album: <span th:text="${album.nome}"></span> Autore: <span th:text="${album.autore.nome}"></span><br>
+		Fotografo:	<span th:text="${fg.nome}"></span>
+		<!-- Nome fotografo: <span th:text="${fotografo.nome}"></span>  -->
+</body>
 </html>

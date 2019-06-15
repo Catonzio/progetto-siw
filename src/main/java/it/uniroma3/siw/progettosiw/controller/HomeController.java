@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.progettosiw.model.Album;
@@ -41,6 +42,16 @@ public class HomeController {
 			model.addAttribute(sb.toString(), albumService.trovaPerAutore(f));
 		}
 		return "paginaIniziale.html";
+	}
+
+	@RequestMapping(value = "/prove", method = RequestMethod.POST)
+	public String prova(Model model, @RequestParam("nomeF") String nomeF) {
+		model.addAttribute("stringa", nomeF);
+//		Fotografo fg = fotografoService.trovaPerNome(nomeF).get(0);
+//		if (fg != null) {
+//			model.addAttribute("fotografo", fg);
+//		}
+		return "stampaProve.html";
 	}
 
 	@PostMapping("/ricerca")

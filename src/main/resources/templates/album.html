@@ -10,8 +10,9 @@
 		<a th:href="@{/addAlbum}">Aggiungi album</a>
 		<ol>
 			<li th:each="album : ${albumi}">
-				Nome:	<span th:text="${album.nome}"></span><br>
-				<span th:if="${album.autore}"><span th:text="'Nome autore: ' + ${album.autore.nome}"></span></span>
+				<a th:href="@{'/album' + '/' + ${album.id}}">
+				Nome:		<span th:text="${album.nome}"></span>
+				Autore:		<span th:each="f : ${album.autore}" th:text="${f.nome}"></span></a>
 			</li>
 		</ol>
 	</body>

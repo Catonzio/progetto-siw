@@ -8,10 +8,10 @@
 	<body>
 		<div th:insert="html_supporto/navbar.html"></div>
 		<a th:href="@{/addFotografo}">Aggiungi fotografo</a>
-		<a th:href="@{/}">Torna alla home page</a>
 		<ol>
 			<li th:each="fotografo : ${fotografi}">
-				<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}">Nome:		<span th:text="${fotografo.nome}"></span>
+				<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}">
+				Nome:		<span th:text="${fotografo.nome}"></span>
 				Cognome:	<span th:text="${fotografo.cognome}"></span></a>
 			</li>
 		</ol>

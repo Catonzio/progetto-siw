@@ -16,8 +16,12 @@
 	</head>
 	<body>
 		<div th:insert="html_supporto/navbar.html"></div>
-		<!-- <div data-include="/html_supporto/navbar.html"></div> -->
 		<a th:href="@{/uploadFoto}">Upload foto</a>
-		<a th:href="@{/}">Torna alla home page</a>
+		<ul>
+			<li th:each="foto : ${fotografie}">
+				<img th:src="'/images/' + ${foto.fileName}" height="100" width="100">
+				<span th:text="${foto.fileName}"></span>
+			</li>
+		</ul>
 	</body>
 </html>

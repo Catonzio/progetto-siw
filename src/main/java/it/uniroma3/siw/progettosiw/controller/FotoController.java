@@ -27,6 +27,7 @@ import it.uniroma3.siw.progettosiw.model.Fotografo;
 import it.uniroma3.siw.progettosiw.service.AlbumService;
 import it.uniroma3.siw.progettosiw.service.FotoService;
 import it.uniroma3.siw.progettosiw.service.FotografoService;
+import it.uniroma3.siw.progettosiw.support.VerifyLogIn;
 
 @Controller
 public class FotoController {
@@ -43,14 +44,18 @@ public class FotoController {
 	@Autowired
 	private FotografoService fotografoService;
 
+	private VerifyLogIn verify = new VerifyLogIn();
+
 	@RequestMapping("/fotografie")
 	public String fotografie(Model model) {
+		verify.addLoginAttributes(model);
 		model.addAttribute("fotografie", fotoService.tutteFoto());
 		return "fotografie.html";
 	}
 
 	@RequestMapping(value = "/uploadFoto")
 	public String upload(Model model) {
+		verify.addLoginAttributes(model);
 		model.addAttribute("fotografi", fotografoService.tuttiFotografi());
 		model.addAttribute("albumi", albumService.tuttiAlbum());
 		return "uploadFoto.html";
@@ -59,6 +64,7 @@ public class FotoController {
 	@RequestMapping(value = "/upload_images", method = RequestMethod.POST)
 	public String fotoUpload(Model model, @RequestParam("file") MultipartFile file,
 			@RequestParam("nomeAlbum") String nomeAlbum, @RequestParam("nomeFotografo") String nomeFotografo) {
+		verify.addLoginAttributes(model);
 		model.addAttribute("fotografi", fotografoService.tuttiFotografi());
 		model.addAttribute("albumi", albumService.tuttiAlbum());
 		try {
@@ -82,6 +88,7 @@ public class FotoController {
 
 	@RequestMapping(value = "/upload_images/{id}", method = RequestMethod.GET)
 	public String aggiornaConAlbum(Model model, @PathVariable("id") Long id) {
+		verify.addLoginAttributes(model);
 		model.addAttribute("fotografi", fotografoService.tuttiFotografi());
 		if (id != null) {
 			Fotografo fotografo = fotografoService.trovaPerId(id);

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<div th:fragment="immagini(fotos)" th:each="foto : ${fotos}">
+			<img th:src="'/images/' + ${foto.fileName}" height="200" width="200">
+			<span th:text="${foto.fileName}"></span>
+		</div>
+	</body>
+</html>

@@ -11,6 +11,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
+@Indexed
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "nome", "cognome" }))
 public class Fotografo {
@@ -19,6 +23,7 @@ public class Fotografo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(unique = true)
+	@Field
 	private String nome;
 	@Column
 	private String cognome;

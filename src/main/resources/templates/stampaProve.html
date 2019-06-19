@@ -6,7 +6,7 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<div th:insert="html_supporto/navbar.html"></div>
+		<div th:replace="fragments/navbar.html :: navbar"></div>
 		Album: <span th:text="${album.nome}"></span> Autore: <span th:text="${album.autore.nome}"></span><br>
 		Fotografo:	<span th:text="${fg.nome}"></span>
 		<!-- Nome fotografo: <span th:text="${fotografo.nome}"></span>  -->

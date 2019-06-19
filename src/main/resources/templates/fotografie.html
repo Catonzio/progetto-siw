@@ -6,16 +6,11 @@
 		<title>Fotos</title>
 	</head>
 	<body>
-		<div th:insert="html_supporto/navbar.html"></div>
+		<div th:replace="fragments/navbar.html :: navbar"></div>
+		<h3  th:if="${role} == 'ADMIN'"><a th:href="@{/uploadFoto}">Upload foto</a></h3>
 		<div class="container-fluid">
 			<div class="row">
-				<a th:href="@{/uploadFoto}">Upload foto</a>
-			</div>
-			<div class="row">
-				<div class="col" th:each="foto : ${fotografie}">
-					<img th:src="'/images/' + ${foto.fileName}" height="400" width="500">
-					<span th:text="${foto.fileName}"></span>
-				</div>
+				<div class="col" th:replace="fragments/visualizzaImmagini.html :: immagini(fotos=${fotografie})"></div>
 			</div>
 		</div>
 	</body>

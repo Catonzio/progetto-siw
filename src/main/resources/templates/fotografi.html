@@ -7,12 +7,12 @@
 		<style></style>
 	</head>
 	<body>
-		<div th:insert="html_supporto/navbar.html"></div>
-		<h3><a th:href="@{/addFotografo}">Aggiungi fotografo</a></h3>
+		<div th:replace="fragments/navbar.html :: navbar"></div>
+		<h3 th:if="${role} == 'ADMIN'"><a th:href="@{/addFotografo}">Aggiungi fotografo</a></h3>
 		<div class="container-fluid">
 			<div class="row" th:each="fotografo : ${fotografi}">
 				<div class="col" >
-					<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}">
+					<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}" method="get">
 					Nome:		<span th:text="${fotografo.nome}"></span>
 					&emsp;&emsp;Cognome:	<span th:text="${fotografo.cognome}"></span></a>
 				</div>

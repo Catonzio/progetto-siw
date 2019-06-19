@@ -12,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
+@Indexed
 @Entity
 public class Album {
 
@@ -19,6 +23,7 @@ public class Album {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column
+	@Field
 	private String nome;
 	@Column
 	private LocalDate dataCreazione;
@@ -26,6 +31,8 @@ public class Album {
 	private Fotografo autore;
 	@OneToMany(mappedBy = "album")
 	private List<Foto> foto;
+//	@Column
+//	private Foto fotoCopertina;
 
 	public Album() {
 
@@ -66,6 +73,10 @@ public class Album {
 		return foto;
 	}
 
+	public void setFoto(List<Foto> foto) {
+		this.foto = foto;
+	}
+
 	public Fotografo getAutore() {
 		return autore;
 	}
@@ -73,6 +84,14 @@ public class Album {
 	public void setAutore(Fotografo autore) {
 		this.autore = autore;
 	}
+
+//	public Foto getFotoCopertina() {
+//		return fotoCopertina;
+//	}
+//
+//	public void setFotoCopertina(Foto fotoCopertina) {
+//		this.fotoCopertina = fotoCopertina;
+//	}
 
 	public void aggiungiFoto(Foto foto) {
 		if (foto != null) {

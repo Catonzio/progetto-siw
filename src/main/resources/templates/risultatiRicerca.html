@@ -6,29 +6,25 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<div th:insert="html_supporto/navbar.html"></div>
+		<div th:replace="fragments/navbar.html :: navbar"></div>
 		<h1>Risultati ricerca:</h1><br>
-		<div th:if="${fotografi}">
-			<h3 th:text="Fotografi"></h3><br>
-			<ul>
-				<li th:each="fotografo : ${fotografi}">
+		<div class="container-fluid">
+			<div class="row"><h3 th:if="${fotografi}" th:text="Fotografi"></h3><br></div>
+			<div class="row">
+				<div class="col" th:each="fotografo : ${fotografi}">
 					<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}" th:text="${fotografo.nome}"></a>
-				</li>
-			</ul>
+				</div>
+			</div>
+			<div class="row"><h3 th:if="${albumi}" th:text="Album"></h3><br></div>
+			<div class="row">
+				<div class="col" th:each="album : ${albumi}">
+					<a th:href="@{'/album' + '/' + ${album.id}}" th:text="${album.nome}"></a>
+				</div>
+			</div>
+			<div class="row"><h3 th:if="${fotografie}" th:text="Fotografie"></h3><br></div>
+			<div class="row">
+				<div class="col" th:replace="fragments/visualizzaImmagini.html :: immagini(fotos=${fotografie})"></div>
+			</div>
 		</div>
-		<h3 th:if="${albumi}" th:text="Album"></h3><br>
-		<ul>
-			<li th:each="album : ${albumi}">
-				<a th:href="@{'/album' + '/' + ${album.id}}" th:text="${album.nome}"></a>
-			</li>
-		</ul>
-		<h3 th:if="${fotografie}" th:text="Fotografie"></h3><br>
-		<ul>
-			<li th:each="foto : ${fotografie}">
-				<img th:src="'/images/' + ${foto.fileName}" height="100" width="100">
-				<span th:text="${foto.fileName}"></span>
-			</li>
-		</ul>
-		
 	</body>
 </html>

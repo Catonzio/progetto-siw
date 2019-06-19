@@ -13,6 +13,7 @@ import it.uniroma3.siw.progettosiw.model.Album;
 import it.uniroma3.siw.progettosiw.model.Fotografo;
 import it.uniroma3.siw.progettosiw.service.AlbumService;
 import it.uniroma3.siw.progettosiw.service.FotografoService;
+import it.uniroma3.siw.progettosiw.support.VerifyLogIn;
 
 @Controller
 public class AlbumController {
@@ -23,41 +24,30 @@ public class AlbumController {
 	@Autowired
 	private FotografoService fotografoService;
 
-//	@Autowired
-//	private RicercaValidator ricercaValidator;
+	private VerifyLogIn verify = new VerifyLogIn();
 
 	@RequestMapping("/album")
 	public String album(Model model) {
+		verify.addLoginAttributes(model);
 		model.addAttribute("albumi", albumService.tuttiAlbum());
 		return "album.html";
 	}
 
 	@RequestMapping("/addAlbum")
 	public String addAlbum(Model model) {
+		verify.addLoginAttributes(model);
 		return "addAlbum.html";
 	}
 
 	@RequestMapping(value = "/album/{idF}/{idA}", method = RequestMethod.POST)
 	public String selezionaAlbum(Model model, @RequestParam("idF") Long idF, @RequestParam("idA") Long idA) {
+		verify.addLoginAttributes(model);
 		return "uploadFoto.html";
 	}
 
-//	@RequestMapping(value = "/aggiungiAlbum", method = RequestMethod.POST)
-//	public String aggiungiAlbum(@ModelAttribute("ricerca") Ricerca ricerca, Model model, BindingResult bindingResult) {
-//		ricercaValidator.validate(ricerca, bindingResult);
-//		if (!bindingResult.hasErrors()) {
-//			Fotografo fotografo = fotografoService.trovaPerNome(ricerca.getStringa2()).get(0);
-//			Album album = new Album(ricerca.getStringa1(), fotografo);
-//			fotografo.aggiungiAlbum(album);
-//			albumService.save(album);
-//			model.addAttribute("albumi", albumService.tuttiAlbum());
-//			return "album.html";
-//		} else
-//			return "addAlbum.html";
-//	}
-
 	@RequestMapping(value = "/album/{id}", method = RequestMethod.GET)
 	public String visualizzaAlbum(@PathVariable("id") Long id, Model model) {
+		verify.addLoginAttributes(model);
 		if (id != null) {
 			Album album = albumService.trovaPerId(id);
 			Fotografo fotografo = album.getAutore();
@@ -75,6 +65,7 @@ public class AlbumController {
 	@PostMapping("/aggiungiAlbum")
 	public String altriNomi(Model model, @RequestParam("nomeAlbum") String nomeAlbum,
 			@RequestParam("nomeFotografo") String nomeFotografo) {
+		verify.addLoginAttributes(model);
 		if (!(nomeFotografo.isBlank()) && !(nomeAlbum.isBlank())) {
 			Fotografo fotografo = fotografoService.trovaPerNome(nomeFotografo).get(0);
 			Album album = new Album(nomeAlbum, fotografo);

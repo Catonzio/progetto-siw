@@ -7,7 +7,7 @@
 		
 	</head>
 	<body>
-		<div th:insert="html_supporto/navbar.html"></div>
+		<div th:replace="fragments/navbar.html :: navbar"></div>
 		<h3>Pagina album</h3>
 		Nome album: <span th:text="${album.nome}"></span><br>
 		<div th:if="${fotografo}">
@@ -16,10 +16,7 @@
 		</div>
 		<div th:if="${album.foto}"  class="container-fluid">
 			<div class="row">
-				<div class="col" th:each="foto : ${album.foto}">
-					<img th:src="'/images/' + ${foto.fileName}" height="100" width="100">
-					<span th:text="${foto.fileName}"></span>			
-				</div>
+				<div class="col" th:replace="fragments/visualizzaImmagini.html :: immagini(fotos=${album.foto})"></div>	
 			</div>
 		</div>
 	</body>

@@ -6,20 +6,12 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<div th:insert="html_supporto/navbar.html"></div>
+		<div th:replace="fragments/navbar.html :: navbar"></div>
 		<h1>Inserimento album</h1>
 		<form action="/aggiungiAlbum" method="POST" >
 			Nome album: <input type="text" name="nomeAlbum">
 			Nome autore: <input type="text" name="nomeFotografo">
 			<input type="submit" name="invia" value="Invia">
 		</form>
-		<!--  <form th:action="@{/aggiungiAutore}" method="post" th:object="${fotografo}" >
-			Nome autore:	<input type="text" th:field="*{nome}">
-		</form>  -->
-	
-	
-	
 	</body>
-	
-	
 </html>

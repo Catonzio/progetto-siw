@@ -11,6 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
+@Indexed
 @Entity
 public class Foto {
 
@@ -23,7 +27,8 @@ public class Foto {
 	private String fileName;
 	@Column(name = "file_extension", length = 5)
 	private String fileExtension;
-	@Column
+	@Column(name = "fileBaseName")
+	@Field
 	private String fileBaseName;
 	@Column
 	private LocalDate dataCaricamento;

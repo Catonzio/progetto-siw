@@ -4,29 +4,36 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Pagina Iniziale</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/paginaIniziale.css">
 	</head>
 	<body>
-		<div th:insert="html_supporto/navbar.html"></div>
+		<!-- <div th:insert="html_supporto/navbar.html"></div> -->
+		<div th:replace="fragments/navbar.html :: navbar"></div>
 		<div class="container-fluid">
-			<div class="row" th:each="fotografo : ${fotografi}">>
-				<div class="col" >
+			<div class="row" th:each="fotografo : ${fotografi}">
+				<div class="col" th:if="${not #lists.isEmpty(fotografo.album)}">
 					<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}">Fotografo: <span th:text="${fotografo.nome}">Danilo</span><br></a>
-					<ul>
-						<li th:each="album : ${fotografo.album}">
-							Nome album: &emsp;<span th:text="${album.nome}">Album di Danilo</span>
-						</li>
-					</ul>
+					<div class="row">
+						<div class="col" th:each="album : ${fotografo.album}">
+							<div class="card" style="width: 18rem;">
+							 	<img src="/images/JSAVision.png" class="card-img-top">
+							 	<div class="card-body" style="background:#606060;">
+								   	<h5 class="card-title" th:text="${album.nome}">Card title</h5>
+									<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+									<a th:href="@{'/album' + '/' + ${album.id}}" class="btn btn-primary">Go somewhere</a>
+							  	</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="container-fluid">
 			<div class="row">
-				<div class="col" th:each="foto : ${fotografie}">
-					<img th:src="'/images/' + ${foto.fileName}" height="100" width="100">
-					<span th:text="${foto.fileName}"></span>
-				</div>
+				<div class="col" th:replace="fragments/visualizzaImmagini.html :: immagini(fotos=${fotografie})"></div>	
 			</div>
 		</div>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	</body>
 </html>

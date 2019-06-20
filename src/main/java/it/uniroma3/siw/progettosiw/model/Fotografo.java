@@ -1,5 +1,6 @@
 package it.uniroma3.siw.progettosiw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,7 +34,8 @@ public class Fotografo {
 	private List<Foto> fotoFatte;
 
 	public Fotografo() {
-
+		album = new ArrayList<>();
+		fotoFatte = new ArrayList<>();
 	}
 
 	public Long getId() {
@@ -74,5 +76,16 @@ public class Fotografo {
 		if (foto != null) {
 			fotoFatte.add(foto);
 		}
+	}
+
+	@Override
+	public String toString() {
+		return nome;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Fotografo that = (Fotografo) obj;
+		return getNome().equals(that.getNome()) && getCognome().equals(that.getCognome());
 	}
 }

@@ -1,5 +1,7 @@
 package it.uniroma3.siw.progettosiw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +27,15 @@ public class FotografoController {
 
 	private VerifyLogIn verify = new VerifyLogIn();
 
+	@ModelAttribute
+	public void addCommonAttributes(Model model) {
+		model.addAttribute("fotografi", fotografoService.tuttiFotografi());
+	}
+
 	@RequestMapping(value = "/fotografi")
 	public String fotografi(Model model) {
-		model.addAttribute("fotografi", fotografoService.tuttiFotografi());
+		List<Fotografo> fotografi = fotografoService.tuttiFotografi();
+		model.addAttribute("fotografoSelezionato", fotografi.get(0));
 		verify.addLoginAttributes(model);
 		return "fotografi.html";
 	}
@@ -46,6 +54,7 @@ public class FotografoController {
 		fotografoValidator.validate(fotografo, bindingResult);
 		if (!bindingResult.hasErrors()) {
 			fotografoService.save(fotografo);
+			model.addAttribute("fotografoSelezionato", fotografoService.tuttiFotografi().get(0));
 			model.addAttribute("fotografi", fotografoService.tuttiFotografi());
 			return "fotografi.html";
 		} else
@@ -57,14 +66,12 @@ public class FotografoController {
 		verify.addLoginAttributes(model);
 		if (id != null) {
 			Fotografo fotografo = fotografoService.trovaPerId(id);
-			model.addAttribute("fotografo", fotografo);
+			model.addAttribute("fotografoSelezionato", fotografo);
 			if (!(fotografo.getAlbum().size() == 0)) {
 				model.addAttribute("albumi", fotografo.getAlbum());
 			}
-			return "paginaFotografo.html";
-		} else {
-			model.addAttribute("fotografi", fotografoService.tuttiFotografi());
 			return "fotografi.html";
-		}
+		} else
+			return "fotografi.html";
 	}
 }

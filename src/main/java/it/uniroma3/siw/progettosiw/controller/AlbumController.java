@@ -1,10 +1,13 @@
 package it.uniroma3.siw.progettosiw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,23 +29,28 @@ public class AlbumController {
 
 	private VerifyLogIn verify = new VerifyLogIn();
 
+	@ModelAttribute
+	public void addCommonAttribute(Model model) {
+		List<Album> albums = albumService.tuttiAlbum();
+		if ((albums != null) && !albums.isEmpty()) {
+			model.addAttribute("albumi", albums);
+			model.addAttribute("albumSelezionato", albums.get(0));
+		}
+	}
+
 	@RequestMapping("/album")
 	public String album(Model model) {
 		verify.addLoginAttributes(model);
-		model.addAttribute("albumi", albumService.tuttiAlbum());
+		List<Album> albums = albumService.tuttiAlbum();
+		model.addAttribute("albumSelezionato", albums.get(0));
 		return "album.html";
 	}
 
 	@RequestMapping("/addAlbum")
 	public String addAlbum(Model model) {
 		verify.addLoginAttributes(model);
+		model.addAttribute("fotografi", fotografoService.tuttiFotografi());
 		return "addAlbum.html";
-	}
-
-	@RequestMapping(value = "/album/{idF}/{idA}", method = RequestMethod.POST)
-	public String selezionaAlbum(Model model, @RequestParam("idF") Long idF, @RequestParam("idA") Long idA) {
-		verify.addLoginAttributes(model);
-		return "uploadFoto.html";
 	}
 
 	@RequestMapping(value = "/album/{id}", method = RequestMethod.GET)
@@ -51,18 +59,18 @@ public class AlbumController {
 		if (id != null) {
 			Album album = albumService.trovaPerId(id);
 			Fotografo fotografo = album.getAutore();
-			model.addAttribute("album", album);
+			model.addAttribute("albumSelezionato", album);
 			if (fotografo != null) {
 				model.addAttribute("fotografo", fotografo);
 			}
-			return "paginaAlbum.html";
+			return "album.html";
 		} else {
 			model.addAttribute("albumi", albumService.tuttiAlbum());
 			return "album.html";
 		}
 	}
 
-	@PostMapping("/aggiungiAlbum")
+	@GetMapping("/aggiungiAlbum")
 	public String altriNomi(Model model, @RequestParam("nomeAlbum") String nomeAlbum,
 			@RequestParam("nomeFotografo") String nomeFotografo) {
 		verify.addLoginAttributes(model);

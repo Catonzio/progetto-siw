@@ -15,19 +15,24 @@ public class FunzionarioService {
 
 	@Autowired
 	private FunzionarioRepository funzionarioRepository;
-	
+
 	@Transactional
 	public Funzionario inserisciFunzionario(Funzionario funzionario) {
 		return funzionarioRepository.save(funzionario);
 	}
-	
+
 	@Transactional
 	public List<Funzionario> tutti() {
 		return (List<Funzionario>) funzionarioRepository.findAll();
 	}
-	
+
 	@Transactional
 	public Funzionario funzionarioPerId(Long id) {
 		return funzionarioRepository.findById(id).get();
+	}
+
+	@Transactional
+	public void save(Funzionario f) {
+		funzionarioRepository.save(f);
 	}
 }

@@ -3,21 +3,45 @@
 	xmlns="http://www.w3.org/1999/html">
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>Upload foto</title>
+		<style>.col-5{padding:10px;}</style>
 	</head>
 	<body>
 		<div th:replace="fragments/navbar.html :: navbar"></div>
 		<form th:action="@{/upload_images}" enctype="multipart/form-data" method="post">
 			<!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>  -->
-			Select Photo:	<input type="file" accept="image/*" name="file"/><br>
-			Autore:	<select name="nomeFotografo">
-						<option th:each="fotografo : ${fotografi}" th:text="${fotografo.nome}"  th:value="${fotografo.nome}">Fotografo</option>
-					</select>
-			Album:	<select name="nomeAlbum">
-						<option th:if="${albumi}" th:each="album : ${albumi}" th:text="${album.nome}" th:value="${album.nome}">Album</option>
-					</select><br>
-			<input type="submit" value="upload"/>
+			<div class="container">
+				<div class="row">
+					<div class="col-5">
+						Seleziona foto:
+					</div>
+					<div class="col-5">
+						<input type="file" accept="image/*" name="file"/><br>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-5">
+						Autore:
+					</div>
+					<div class="col-5">
+						<select name="nomeFotografo">
+							<option th:each="fotografo : ${fotografi}" th:text="${fotografo.nome}"  th:value="${fotografo.nome}">Fotografo</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-5">
+						Album:
+					</div>
+					<div class="col-5">
+						<select name="nomeAlbum">
+							<option th:if="${albumi}" th:each="album : ${albumi}" th:text="${album.nome}" th:value="${album.nome}">Album</option>
+						</select>
+					</div>
+				</div>
+				<input class="btn btn-primary" type="submit" value="Upload">
+			</div>
 		</form>
-		<br>
+		
 	</body>
 </html>

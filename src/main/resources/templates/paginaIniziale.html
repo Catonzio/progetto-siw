@@ -5,31 +5,23 @@
 		<meta charset="UTF-8">
 		<title>Pagina Iniziale</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="/css/paginaIniziale.css">
+		<style>
+			h2,.col-sm-{padding:10pt;}
+			h2,.row,a{width=20%;}</style>
 	</head>
 	<body>
 		<!-- <div th:insert="html_supporto/navbar.html"></div> -->
 		<div th:replace="fragments/navbar.html :: navbar"></div>
 		<div class="container-fluid">
-			<div class="row" th:each="fotografo : ${fotografi}">
+			<div class="row" th:each="fotografo : ${fotografi}" >
 				<div class="col" th:if="${not #lists.isEmpty(fotografo.album)}">
-					<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}">Fotografo: <span th:text="${fotografo.nome}">Danilo</span><br></a>
+					<h2><a th:href="@{'/fotografo' + '/' + ${fotografo.id}}" th:text="${fotografo.nome}"></a></h2><br>
 					<div class="row">
-						<div class="col" th:each="album : ${fotografo.album}">
-							<div class="card" style="width: 18rem;">
-							 	<img src="/images/JSAVision.png" class="card-img-top">
-							 	<div class="card-body" style="background:#606060;">
-								   	<h5 class="card-title" th:text="${album.nome}">Card title</h5>
-									<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-									<a th:href="@{'/album' + '/' + ${album.id}}" class="btn btn-primary">Go somewhere</a>
-							  	</div>
-							</div>
+						<div class="col-sm-" th:each="album : ${fotografo.album}">
+							<div th:replace="fragments/visualizzaImmagini.html :: album(album=${album})"></div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col" th:replace="fragments/visualizzaImmagini.html :: immagini(fotos=${fotografie})"></div>	
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

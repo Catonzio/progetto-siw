@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<div class="container" th:fragment="richiesta(richiesta)" style="border-:solid;">
+			<div class="row">
+				<div class="col">Nome:</div>
+				<div class="col" th:text="${richiesta.nomeRichiedente}"></div>
+			</div>
+			<div class="row">
+				<div class="col">Cognome:</div>
+				<div class="col" th:text="${richiesta.cognomeRichiedente}"></div>
+			</div>
+			<div class="row">
+				<div class="col">Email:</div>
+				<div class="col" th:text="${richiesta.emailRichiedente}"></div>
+			</div>
+			<div class="row">
+				<div class="col">Motivo richiesta:</div>
+				<div class="col" th:text="${richiesta.testoRichiesta}"></div>
+			</div>
+			<div class="row">
+				<div class="col" th:each="foto : ${richiesta.fotoRichieste}">
+					<div th:replace="fragments/visualizzaImmagini.html :: immagini(foto=${foto}, caller='RICHIESTA')"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

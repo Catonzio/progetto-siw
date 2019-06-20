@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Carrello</title>
+		<style>
+			.col-4 {
+				text-align: center;
+			}
+			 .col-sm- {
+			 	padding:10px;
+			 }
+		</style>
+	</head>
+	<body>
+		<div th:replace="fragments/navbar.html :: navbar"></div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-4"><h2 class="left">Elementi nel carrello</h2></div>
+				<div class="col-4"><h2 class="richiesta"><a th:href="@{/richiestaUtilizzo}">Richiedi utilizzo foto</a></h2></div>
+				<div class="col-4"><h2 class="right"><a th:href="@{/svuotaCarrello}">Svuota carrello</a></h2></div>
+			</div>
+			<div class="row">
+				<div class="col-sm-" id="foto" th:each="foto : ${fotografie}">
+					<div th:replace="fragments/visualizzaImmagini.html :: immagini(foto = ${foto}, caller='CARRELLO')"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

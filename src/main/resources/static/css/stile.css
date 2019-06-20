@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.menu{
+width:200px;
+height:100%;
+position:absolute;
+left:-200;
+background:#606060;	
+}
+
+.menu ul{
+	width:100%;
+	float:left;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+.menu ul li{
+	margin-top:10px;	
+}
+
+.menu ul li:first-child{
+margin-top:100px;
+}
+.menu ul li:hover{
+	background:#fff;
+	border-left:10px solid #f06;
+}
+.menu ul li a{
+	text-align: center;
+	color: white;
+	text-decoration: none;
+	padding: 5px 0;
+	display: block;
+}
+
+.menu ul li:hover a{
+color:#606060;
+}
+
+
+
+
+

@@ -125,7 +125,16 @@ public class Foto {
 
 	@Override
 	public String toString() {
-		return "Nome: " + getFileName();
+		StringBuilder sb = new StringBuilder();
+		sb.append("Nome: " + getFileName());
+		sb.append("Autore: " + getAutore());
+		sb.append("Album: " + getAlbum());
+		return sb.toString();
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		Foto that = (Foto) o;
+		return fileDirectory.equals(that.getFileDirectory()) && fileName.equals(that.fileName);
+	}
 }

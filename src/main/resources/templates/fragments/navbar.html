@@ -33,15 +33,15 @@
 								</ul>
 								<a th:if="!${role}" class="nav-link" href="/login">Sei un funzionario?</a>
 								<div th:if="${role} == 'ADMIN'">
-									Ciao <span th:text="${nome}">!</span>&emsp;
+									<a class="nav-link" href="/vediRichieste">Richieste</a>
 									<a class="nav-link" href="/logout">Logout</a>
 								</div>
 								<div>
-									<a href="#" style="padding-right:10pt;"><img src="/imagesNeeded/carrello.png" height="50" width="50"></a>
+									<a href="/carrello" style="padding-right:10pt;"><img src="/imagesNeeded/carrello.png" height="50" width="50"></a>
 								</div>
 								<form class="form-inline my-2 my-lg-0" action="/ricerca" method="get">
 									<input class="form-control mr-sm-2" type="text" placeholder="Cerca..." aria-label="Search" name="ricerca">
-									<input class="btn btn-outline-success my-2 my-sm-0" type="submit">
+									<input class="btn btn-primary" type="submit">
 								</form>
 						  </div>
 						</nav>

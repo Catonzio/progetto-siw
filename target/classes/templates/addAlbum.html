@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns="http://www.w3.org/1999/html">
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-	</head>
-	<body>
-		<div th:replace="fragments/navbar.html :: navbar"></div>
-		<h1>Inserimento album</h1>
-		<form action="/aggiungiAlbum" method="POST" >
-			Nome album: <input type="text" name="nomeAlbum">
-			Nome autore: <input type="text" name="nomeFotografo">
-			<input type="submit" name="invia" value="Invia">
-		</form>
-	</body>
+<head>
+<meta charset="UTF-8">
+<title>Aggiungi album</title>
+<style>
+.col-sm- {
+	padding: 10pt;
+}
+</style>
+</head>
+<body>
+	<div th:replace="fragments/navbar.html :: navbar"></div>
+	<div class="container">
+		<div class="row">
+			<h1>Inserimento album</h1>
+		</div>
+		<div class="row">
+			<form action="/aggiungiAlbum" method="get">
+				<div class="col-sm-">
+					Nome album: <input type="text" name="nomeAlbum">
+				</div>
+				<div class="col-sm-">
+					Nome autore: <select name="nomeFotografo">
+						<option th:each="fotografo : ${fotografi}"
+							th:text="${fotografo.nome}" th:value="${fotografo.nome}">Fotografo</option>
+					</select>
+				</div>
+				<div class="row">
+					<input type="submit" name="invia" class="btn btn-primary"
+						value="Invia">
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
 </html>

@@ -3,7 +3,10 @@
 	xmlns="http://www.w3.org/1999/html">
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>Risultati ricerca</title>
+		<style>
+			.col-md- {padding:10pt;}
+		</style>
 	</head>
 	<body>
 		<div th:replace="fragments/navbar.html :: navbar"></div>
@@ -11,19 +14,21 @@
 		<div class="container-fluid">
 			<div class="row"><h3 th:if="${fotografi}" th:text="Fotografi"></h3><br></div>
 			<div class="row">
-				<div class="col" th:each="fotografo : ${fotografi}">
+				<div class="col-md-" th:each="fotografo : ${fotografi}">
 					<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}" th:text="${fotografo.nome}"></a>
 				</div>
 			</div>
 			<div class="row"><h3 th:if="${albumi}" th:text="Album"></h3><br></div>
 			<div class="row">
-				<div class="col" th:each="album : ${albumi}">
-					<a th:href="@{'/album' + '/' + ${album.id}}" th:text="${album.nome}"></a>
+				<div class="col-md-" th:each="album : ${albumi}">
+					<div th:replace="fragments/visualizzaImmagini.html :: album(album=${album})"></div>
 				</div>
 			</div>
 			<div class="row"><h3 th:if="${fotografie}" th:text="Fotografie"></h3><br></div>
 			<div class="row">
-				<div class="col" th:replace="fragments/visualizzaImmagini.html :: immagini(fotos=${fotografie})"></div>
+				<div class="col-md-" th:each="foto : ${fotografie}">
+					<div th:replace="fragments/visualizzaImmagini.html :: immagini(foto=${foto}, caller='RICERCA')"></div>
+				</div>
 			</div>
 		</div>
 	</body>

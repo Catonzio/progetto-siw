@@ -4,13 +4,23 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Fotos</title>
+		<link href="/css/footer.css" rel="stylesheet" type="text/css">
+		<style>
+			.col-sm-, h2 {
+			 	padding:10px;
+			 }
+		</style>
 	</head>
 	<body>
 		<div th:replace="fragments/navbar.html :: navbar"></div>
-		<h3  th:if="${role} == 'ADMIN'"><a th:href="@{/uploadFoto}">Upload foto</a></h3>
+		<h2  class="footer" th:if="${role} == 'ADMIN'"><a th:href="@{/uploadFoto}">Upload foto</a></h2>
 		<div class="container-fluid">
+			<div class="row" th:if="${not #lists.isEmpty(fotografie)}"><h2>Elenco foto</h2></div>
+			<div class="row" th:if="${#lists.isEmpty(fotografie)}"><h2>Nessuna foto disponibile</h2></div>
 			<div class="row">
-				<div class="col" th:replace="fragments/visualizzaImmagini.html :: immagini(fotos=${fotografie})"></div>
+				<div class="col-sm-"  th:each="foto : ${fotografie}">
+					<div th:replace="fragments/visualizzaImmagini.html :: immagini(foto=${foto}, caller='FOTOGRAFIE')"></div>
+				</div>
 			</div>
 		</div>
 	</body>

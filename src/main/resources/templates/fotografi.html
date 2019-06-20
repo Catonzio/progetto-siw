@@ -4,17 +4,48 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Fotografi</title>
-		<style></style>
+		<link href="/css/stile.css" rel="stylesheet" type="text/css" media="screen">
+		<link href="/css/footer.css" rel="stylesheet" type="text/css">
+		<style>.col-sm- {padding:10px;}</style>
 	</head>
 	<body>
 		<div th:replace="fragments/navbar.html :: navbar"></div>
-		<h3 th:if="${role} == 'ADMIN'"><a th:href="@{/addFotografo}">Aggiungi fotografo</a></h3>
-		<div class="container-fluid">
-			<div class="row" th:each="fotografo : ${fotografi}">
-				<div class="col" >
-					<a th:href="@{'/fotografo' + '/' + ${fotografo.id}}" method="get">
-					Nome:		<span th:text="${fotografo.nome}"></span>
-					&emsp;&emsp;Cognome:	<span th:text="${fotografo.cognome}"></span></a>
+		<div id="container-fluid">
+			<header>
+    			<div class="menu">
+        			<h2 style="padding:20%;">Fotografi</h2>
+        			<ul>
+	                	<li th:each="fotografo : ${fotografi}" style="color:white;">
+	                		<a th:href="@{'/fotografo'+'/'+ ${fotografo.id}}" th:text="${fotografo.nome}">Home</a>
+	                	</li>
+                	</ul>
+       	 			<h1 th:if="${role} == 'ADMIN'" class="footer">
+      					 <a th:href="@{/addFotografo}">Aggiungi fotografo</a>
+      				</h1>
+       	 		</div>
+    		</header>
+			<div class="container" style="width:200%;">
+				<div class="row">
+						<h3>Pagina fotografo</h3>
+				</div>
+				<div class="row">
+					<div class="col-sm-">
+						Nome: <span th:text="${fotografoSelezionato.nome}"></span>
+					</div>
+					<div class="col-sm-">
+						Cognome: <span th:text="${fotografoSelezionato.cognome}"></span>
+					</div>	
+				</div>
+				<h3 th:if="${#lists.isEmpty(fotografoSelezionato.album)}">Nessun album disponibile</h3>
+				<div th:if="${not #lists.isEmpty(fotografoSelezionato.album)}">
+					<div class="row">
+						<h3>Lista album:</h3>
+					</div>
+					<div class="row">
+						<div class="col-sm-" th:each="album : ${fotografoSelezionato.album}">
+							<div th:replace="fragments/visualizzaImmagini.html :: album(album=${album})"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

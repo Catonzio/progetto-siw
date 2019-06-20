@@ -31,11 +31,9 @@ public class Album {
 	private Fotografo autore;
 	@OneToMany(mappedBy = "album")
 	private List<Foto> foto;
-//	@Column
-//	private Foto fotoCopertina;
 
 	public Album() {
-
+		foto = new ArrayList<>();
 	}
 
 	public Album(String nome, Fotografo autore) {
@@ -85,13 +83,10 @@ public class Album {
 		this.autore = autore;
 	}
 
-//	public Foto getFotoCopertina() {
-//		return fotoCopertina;
-//	}
-//
-//	public void setFotoCopertina(Foto fotoCopertina) {
-//		this.fotoCopertina = fotoCopertina;
-//	}
+	@Override
+	public String toString() {
+		return "Nome: " + nome;
+	}
 
 	public void aggiungiFoto(Foto foto) {
 		if (foto != null) {
@@ -99,4 +94,9 @@ public class Album {
 		}
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Album that = (Album) obj;
+		return getNome().equals(that.getNome()) && getAutore().equals(that.getAutore());
+	}
 }

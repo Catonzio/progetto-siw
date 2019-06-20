@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -96,24 +98,34 @@ public class FotoService {
 		return new Foto(uploadDirectory, fileName, extension, fileBaseName, fotografo, album);
 	}
 
+	@Transactional
 	public void save(Foto foto) {
 		fotoRepository.save(foto);
 	}
 
+	@Transactional
 	public List<Foto> tutteFoto() {
 		return fotoRepository.findAll();
 	}
 
+	@Transactional
 	public Foto findLastFile() {
 		return fotoRepository.findFirstByOrderByIdDesc();
 	}
 
+	@Transactional
 	public List<Foto> trovaPerNome(String stringa) {
 		return fotoRepository.findByFileName(stringa);
 	}
 
+	@Transactional
 	public List<Foto> trovaPerSimilarNome(String stringa) {
 		return fotoRepository.findBySimilarName(stringa);
+	}
+
+	@Transactional
+	public Foto trovaPerId(Long id) {
+		return fotoRepository.findById(id).get();
 	}
 
 }

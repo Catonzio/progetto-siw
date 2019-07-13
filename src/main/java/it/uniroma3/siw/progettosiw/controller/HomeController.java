@@ -71,10 +71,10 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String inizia(Model model) {
 		verify.addLoginAttributes(model);
-		if (!isAlreadyInitialized) {
-			inizializzaDatabase();
-			isAlreadyInitialized = true;
-		}
+//		if (!isAlreadyInitialized) {
+//			inizializzaDatabase();
+//			isAlreadyInitialized = true;
+//		}
 		model.addAttribute("fotografie", fotoService.tutteFoto());
 		model.addAttribute("fotografi", fotografoService.tuttiFotografi());
 		return "paginaIniziale.html";
